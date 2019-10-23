@@ -1,0 +1,28 @@
+@PutMapping("/updateInsurance/{id}")
+	public List<InsuranceCalculatorEntity> updateInsurance(@PathVariable Integer id,@RequestBody InsuranceCalculatorEntity insurance) {
+		System.out.println(id);
+		System.out.println(insurance.getVehicleModel());
+		return service.updateInsurance(id, insurance);
+	}
+  
+  
+  @Override
+	public List<InsuranceCalculatorEntity> updateInsurance(Integer id, InsuranceCalculatorEntity insurance) {
+		// TODO Auto-generated method stub
+		Optional<InsuranceCalculatorEntity> e=insuranceDao.findById(id);
+		InsuranceCalculatorEntity e1=e.get();
+		
+		e1.setId(insurance.getId());
+		e1.setInsuranceAmount(insurance.getInsuranceAmount());
+		e1.setOnRoadPrice(insurance.getOnRoadPrice());
+		e1.setPurchaseYear(insurance.getPurchaseYear());
+		e1.setVehicleModel(insurance.getVehicleModel());
+		e1.setExpDate(insurance.getExpDate());
+		
+		insuranceDao.save(e1);
+		
+		return insuranceDao.findAll();
+	}
+  
+  
+  
